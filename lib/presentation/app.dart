@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mood_diary_evo_test/presentation/pages/home_page.dart';
+import 'package:mood_diary_evo_test/presentation/pages/home_page/home_page.dart';
 import 'package:mood_diary_evo_test/presentation/theme/app_theme_extensions.dart';
 import 'package:mood_diary_evo_test/presentation/theme/palette.dart';
 
