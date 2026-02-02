@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mood_diary_evo_test/core/app_ink_well.dart';
 import 'package:mood_diary_evo_test/domain/enum/emotes.dart';
 import 'package:mood_diary_evo_test/presentation/theme/app_theme_extensions.dart';
 import 'package:mood_diary_evo_test/presentation/theme/text_styles.dart';
@@ -32,21 +33,16 @@ class ItemEmoteWidget extends StatelessWidget {
           width: 2
         )
       ),
-      child: Material(
-        type: MaterialType.transparency,
-        child: InkWell(
-          borderRadius: BorderRadius.circular(borderRadius),
-          onTap: onChoose,
-          splashColor: context.palette.accent.withAlpha(128),
-          highlightColor: context.palette.accent,
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Image.asset(assetPath, width: 53, height: 50),
-                Text(emote.name, style: TS.label.use(context.palette.text))
-              ],
-            ),
+      child: AppInkWell(
+        borderRadius: BorderRadius.circular(borderRadius),
+        onTap: onChoose,
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image.asset(assetPath, width: 53, height: 50),
+              Text(emote.name, style: TS.label.use(context.palette.text))
+            ],
           ),
         ),
       ),

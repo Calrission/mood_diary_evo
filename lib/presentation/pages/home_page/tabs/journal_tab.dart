@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mood_diary_evo_test/presentation/pages/home_page/widgets/choose_emote_widget.dart';
+import 'package:mood_diary_evo_test/presentation/pages/home_page/widgets/choose_sensation_widget.dart';
 import 'package:mood_diary_evo_test/presentation/pages/home_page/widgets/note_block.dart';
 import 'package:mood_diary_evo_test/presentation/pages/home_page/widgets/slider_block.dart';
 import 'package:mood_diary_evo_test/presentation/theme/app_theme_extensions.dart';
@@ -30,6 +31,18 @@ class JournalTab extends StatelessWidget {
               onChoose: (emote){
 
               }
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: pagePadding,
+                right: pagePadding,
+                top: 20
+              ),
+              child: ChooseSensationWidget(
+                onChoose: (sensation){
+
+                },
+              ),
             ),
             SizedBox(height: 26),
             Padding(

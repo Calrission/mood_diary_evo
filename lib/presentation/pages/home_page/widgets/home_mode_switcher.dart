@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mood_diary_evo_test/core/app_ink_well.dart';
 import 'package:mood_diary_evo_test/presentation/pages/home_page/bloc/home_mode_cubit.dart';
 import 'package:mood_diary_evo_test/presentation/theme/app_theme_extensions.dart';
 import 'package:mood_diary_evo_test/presentation/theme/text_styles.dart';
@@ -61,41 +62,37 @@ class _ItemHomeModeSwitcher extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.transparent,
+    return AppInkWell(
+      onTap: onTap,
       borderRadius: BorderRadius.circular(borderRadius),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(borderRadius),
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 17, vertical: 9),
-          decoration: BoxDecoration(
-            color: isSelected ? context.palette.accent : Colors.transparent,
-            borderRadius: BorderRadius.circular(borderRadius),
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SvgPicture.asset(
-                iconPath,
-                colorFilter: ColorFilter.mode(
-                  isSelected
-                      ? context.palette.textOnAccent
-                      : context.palette.grey2,
-                  BlendMode.srcIn,
-                ),
-              ),
-              const SizedBox(width: 6),
-              Text(
-                title,
-                style: TS.tab.use(
-                  isSelected
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 17, vertical: 9),
+        decoration: BoxDecoration(
+          color: isSelected ? context.palette.accent : Colors.transparent,
+          borderRadius: BorderRadius.circular(borderRadius),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SvgPicture.asset(
+              iconPath,
+              colorFilter: ColorFilter.mode(
+                isSelected
                     ? context.palette.textOnAccent
                     : context.palette.grey2,
-                ),
+                BlendMode.srcIn,
               ),
-            ],
-          ),
+            ),
+            const SizedBox(width: 6),
+            Text(
+              title,
+              style: TS.tab.use(
+                isSelected
+                  ? context.palette.textOnAccent
+                  : context.palette.grey2,
+              ),
+            ),
+          ],
         ),
       ),
     );
