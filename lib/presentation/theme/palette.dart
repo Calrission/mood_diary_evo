@@ -12,6 +12,8 @@ class Palette {
 
   final LinearGradient orangeGradient;
 
+  final BoxShadow blockShadow;
+
   const Palette({
     required this.background,
     required this.grey1,
@@ -22,6 +24,7 @@ class Palette {
     required this.orangeGradient,
     required this.accent,
     required this.textOnAccent,
+    required this.blockShadow,
   });
 
   const Palette.light(): this(
@@ -34,6 +37,11 @@ class Palette {
     accent: const Color(0xFFFF8702),
     textOnAccent: const Color(0xFFFFFFFF),
     orangeGradient: const LinearGradient(colors: []),
+    blockShadow: const BoxShadow(
+      color: Color(0x1CB6A1C0),
+      offset: Offset(2, 4),
+      blurRadius: 10.8
+    )
   );
 
   Palette lerp(Palette other, double t) {
@@ -51,6 +59,9 @@ class Palette {
           (e) => Color.lerp(e.$2, other.orangeGradient.colors[e.$1], t)!
         ).toList()
       ),
+      blockShadow: blockShadow.copyWith(
+        color: Color.lerp(blockShadow.color, other.blockShadow.color, t)!
+      )
     );
   }
 }
