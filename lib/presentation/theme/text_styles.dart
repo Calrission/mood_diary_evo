@@ -38,7 +38,7 @@ abstract class TS {
   );
 
   static TextStyle label = GoogleFonts.nunito(
-    fontSize: 11,
+    fontSize: 12,
   );
 
   static TextStyle text = GoogleFonts.nunito(

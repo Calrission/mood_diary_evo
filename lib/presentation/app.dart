@@ -31,7 +31,9 @@ class MyApp extends StatelessWidget {
           color: palette.accent,
         ),
         sliderTheme: SliderThemeData(
+          trackHeight: 6,
           activeTrackColor: palette.accent,
+          disabledActiveTrackColor: palette.grey5,
           inactiveTrackColor: palette.grey5,
           thumbColor: palette.accent,
           disabledThumbColor: palette.grey5,

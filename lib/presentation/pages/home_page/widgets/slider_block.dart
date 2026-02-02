@@ -3,14 +3,15 @@ import 'package:mood_diary_evo_test/presentation/theme/app_theme_extensions.dart
 import 'package:mood_diary_evo_test/presentation/theme/text_styles.dart';
 
 class SliderBlock extends StatefulWidget {
-
+  final bool enabled;
   final String leftLabel;
   final String rightLabel;
 
   const SliderBlock({
     super.key,
     required this.leftLabel,
-    required this.rightLabel
+    required this.rightLabel,
+    this.enabled = true,
   });
 
   @override
@@ -50,11 +51,11 @@ class _SliderBlockState extends State<SliderBlock> {
           SizedBox(height: 2),
           Slider(
             value: value,
-            onChanged: (double value) {
+            onChanged: (widget.enabled) ? (double value) {
               setState(() {
                 this.value = value;
               });
-            },
+            } : null,
             padding: EdgeInsets.zero,
           ),
           SizedBox(height: 2),

@@ -7,8 +7,15 @@ import 'package:mood_diary_evo_test/presentation/theme/values.dart';
 class ItemEmoteWidget extends StatelessWidget {
 
   final Emotes emote;
+  final VoidCallback onChoose;
+  final bool isSelected;
 
-  const ItemEmoteWidget({super.key, required this.emote});
+  const ItemEmoteWidget({
+    super.key,
+    required this.emote,
+    required this.onChoose,
+    this.isSelected = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,15 +24,30 @@ class ItemEmoteWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: context.palette.block,
         borderRadius: BorderRadius.circular(borderRadius),
-        boxShadow: [context.palette.blockShadow]
+        boxShadow: [context.palette.blockShadow],
+        border: Border.all(
+          color: (isSelected)
+            ? context.palette.accent
+            : Colors.transparent,
+          width: 2
+        )
       ),
-      child: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Image.asset(assetPath, width: 53, height: 50),
-            Text(emote.name, style: TS.label.use(context.palette.text))
-          ],
+      child: Material(
+        type: MaterialType.transparency,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(borderRadius),
+          onTap: onChoose,
+          splashColor: context.palette.accent.withAlpha(128),
+          highlightColor: context.palette.accent,
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.asset(assetPath, width: 53, height: 50),
+                Text(emote.name, style: TS.label.use(context.palette.text))
+              ],
+            ),
+          ),
         ),
       ),
     );

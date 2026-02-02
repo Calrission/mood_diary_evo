@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mood_diary_evo_test/domain/enum/emotes.dart';
-import 'package:mood_diary_evo_test/presentation/pages/home_page/widgets/item_emote_widget.dart';
+import 'package:mood_diary_evo_test/presentation/pages/home_page/widgets/choose_emote_widget.dart';
 import 'package:mood_diary_evo_test/presentation/pages/home_page/widgets/slider_block.dart';
 import 'package:mood_diary_evo_test/presentation/theme/app_theme_extensions.dart';
 import 'package:mood_diary_evo_test/presentation/theme/text_styles.dart';
@@ -24,20 +23,10 @@ class JournalTab extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20),
-            SizedBox(
-              height: 130,
-              child: ListView.separated(
-                itemBuilder: (context, index) =>
-                  ItemEmoteWidget(emote: Emotes.values[index]),
-                separatorBuilder: (_, _) => SizedBox(width: 12),
-                itemCount: Emotes.values.length,
-                scrollDirection: Axis.horizontal,
-                padding: EdgeInsets.only(
-                  left: pagePadding,
-                  right: pagePadding,
-                  bottom: 10
-                ),
-              ),
+            ChooseEmoteWidget(
+              onChoose: (emote){
+
+              }
             ),
             SizedBox(height: 26),
             Padding(
@@ -51,6 +40,7 @@ class JournalTab extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: pagePadding),
               child: SliderBlock(
+                enabled: false,
                 leftLabel: "Низкий",
                 rightLabel: "Высокий",
               ),
