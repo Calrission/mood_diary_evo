@@ -20,26 +20,24 @@ class HomePage extends StatelessWidget {
       create: (context) => HomeModeCubit(),
       child: Scaffold(
         appBar: HomeAppBar(),
-        body: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 24),
-              Center(child: HomeModeSwitcher()),
-              SizedBox(height: 30),
-              Expanded(child:
-              BlocBuilder<HomeModeCubit, HomeModeState>(
-                builder: (context, state) {
-                  int page = _modeToTab.keys.toList().indexOf(state);
-                  return IndexedStack(
-                    index: page,
-                    children: _modeToTab.values.toList(),
-                  );
-                },
-              )
-              )
-            ],
-          )
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 24),
+            Center(child: HomeModeSwitcher()),
+            SizedBox(height: 30),
+            Expanded(child:
+            BlocBuilder<HomeModeCubit, HomeModeState>(
+              builder: (context, state) {
+                int page = _modeToTab.keys.toList().indexOf(state);
+                return IndexedStack(
+                  index: page,
+                  children: _modeToTab.values.toList(),
+                );
+              },
+            )
+            )
+          ],
         ),
       ),
     );

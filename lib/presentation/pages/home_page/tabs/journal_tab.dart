@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mood_diary_evo_test/presentation/pages/home_page/widgets/choose_emote_widget.dart';
+import 'package:mood_diary_evo_test/presentation/pages/home_page/widgets/note_block.dart';
 import 'package:mood_diary_evo_test/presentation/pages/home_page/widgets/slider_block.dart';
 import 'package:mood_diary_evo_test/presentation/theme/app_theme_extensions.dart';
 import 'package:mood_diary_evo_test/presentation/theme/text_styles.dart';
@@ -10,6 +11,8 @@ class JournalTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final noteController = TextEditingController();
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -69,6 +72,27 @@ class JournalTab extends StatelessWidget {
                 style: TS.titleBlock.use(context.palette.text)
               ),
             ),
+            SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: pagePadding),
+              child: NoteBlock(
+                controller: noteController,
+                onTextChanged: (newText){
+
+                },
+              ),
+            ),
+            SizedBox(height: 16),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: pagePadding),
+              child: FilledButton(
+                onPressed: (){
+
+                },
+                child: Text("Сохранить")
+              ),
+            ),
+            SizedBox(height: 46),
           ],
         ),
       ),
