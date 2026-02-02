@@ -15,21 +15,15 @@ class ItemEmoteWidget extends StatelessWidget {
     return Container(
       width: 83,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: context.palette.block,
         borderRadius: BorderRadius.circular(borderRadius),
-        boxShadow: [
-          BoxShadow(
-            color: Color(0x1CB6A1C0),
-            offset: Offset(2, 4),
-            blurRadius: 10.8
-          )
-        ]
+        boxShadow: [context.palette.blockShadow]
       ),
       child: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Image.asset(assetPath),
+            Image.asset(assetPath, width: 53, height: 50),
             Text(emote.name, style: TS.label.use(context.palette.text))
           ],
         ),
