@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mood_diary_evo_test/core/app_ink_well.dart';
 import 'package:mood_diary_evo_test/presentation/pages/home_page/bloc/home_mode_cubit.dart';
-import 'package:mood_diary_evo_test/presentation/theme/app_theme_extensions.dart';
+import 'package:mood_diary_evo_test/presentation/theme/app_theme_extension.dart';
 import 'package:mood_diary_evo_test/presentation/theme/text_styles.dart';
 import 'package:mood_diary_evo_test/presentation/theme/values.dart';
 

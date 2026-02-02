@@ -2,7 +2,7 @@ import 'package:datetime_loop/datetime_loop.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mood_diary_evo_test/core/extensions/date_time_extension.dart';
-import 'package:mood_diary_evo_test/presentation/theme/app_theme_extensions.dart';
+import 'package:mood_diary_evo_test/presentation/theme/app_theme_extension.dart';
 import 'package:mood_diary_evo_test/presentation/theme/text_styles.dart';
 import 'package:mood_diary_evo_test/presentation/theme/values.dart';
 

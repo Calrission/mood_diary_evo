@@ -5,19 +5,32 @@ import 'package:mood_diary_evo_test/presentation/pages/home_page/tabs/journal_ta
 import 'package:mood_diary_evo_test/presentation/pages/home_page/tabs/statistic_tab.dart';
 import 'package:mood_diary_evo_test/presentation/pages/home_page/widgets/home_app_bar.dart';
 import 'package:mood_diary_evo_test/presentation/pages/home_page/widgets/home_mode_switcher.dart';
+import 'package:mood_diary_evo_test/presentation/theme/app_theme_extension.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final cubit = HomeModeCubit();
 
   final _modeToTab = const {
     HomeModeState.journal: JournalTab(),
-    HomeModeState.statistic: StatisticTab()
+    HomeModeState.statistic: StatisticTab(),
+  };
+
+  final _scrolledInTabs = {
+    HomeModeState.journal: false,
+    HomeModeState.statistic: false,
   };
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeModeCubit(),
+      create: (context) => cubit,
       child: Scaffold(
         appBar: HomeAppBar(),
         body: Column(
@@ -25,17 +38,40 @@ class HomePage extends StatelessWidget {
           children: [
             SizedBox(height: 24),
             Center(child: HomeModeSwitcher()),
-            SizedBox(height: 30),
-            Expanded(child:
-            BlocBuilder<HomeModeCubit, HomeModeState>(
-              builder: (context, state) {
-                int page = _modeToTab.keys.toList().indexOf(state);
-                return IndexedStack(
-                  index: page,
-                  children: _modeToTab.values.toList(),
-                );
+            SizedBox(height: 15),
+            NotificationListener<ScrollNotification>(
+              onNotification: (notification) {
+                setState(() {
+                  _scrolledInTabs[cubit.state] = notification.metrics.pixels > 0;
+                });
+                return false;
               },
-            )
+              child: Expanded(
+                child: BlocBuilder<HomeModeCubit, HomeModeState>(
+                  builder: (context, state) {
+                    int page = _modeToTab.keys.toList().indexOf(state);
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AnimatedCrossFade(
+                          duration: const Duration(milliseconds: 300),
+                          crossFadeState: (_scrolledInTabs[cubit.state]!)
+                              ? CrossFadeState.showFirst
+                              : CrossFadeState.showSecond,
+                          firstChild: Divider(height: 2, color: context.palette.grey5),
+                          secondChild: const SizedBox(height: 2),
+                        ),
+                        Expanded(
+                          child: IndexedStack(
+                            index: page,
+                            children: _modeToTab.values.toList(),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              ),
             )
           ],
         ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mood_diary_evo_test/presentation/pages/home_page/home_page.dart';
 import 'package:mood_diary_evo_test/presentation/pages/home_page/widgets/slider_block.dart';
-import 'package:mood_diary_evo_test/presentation/theme/app_theme_extensions.dart';
+import 'package:mood_diary_evo_test/presentation/theme/app_theme_extension.dart';
 import 'package:mood_diary_evo_test/presentation/theme/palette.dart';
 import 'package:mood_diary_evo_test/presentation/theme/text_styles.dart';
 
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         primaryColor: palette.accent,
         scaffoldBackgroundColor: palette.background,
         textSelectionTheme: TextSelectionThemeData(
-          cursorColor: palette.accent,
+          cursorColor: palette.text,
           selectionColor: palette.accent.withAlpha(48),
           selectionHandleColor: palette.accent,
         ),
@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
             minimumSize: Size.fromHeight(44),
             backgroundColor: palette.accent,
             foregroundColor: palette.textOnAccent,
-            padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+            padding: EdgeInsets.symmetric(vertical: 15),
             textStyle: TS.button,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(59),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mood_diary_evo_test/core/app_ink_well.dart';
 import 'package:mood_diary_evo_test/domain/enum/emotes.dart';
-import 'package:mood_diary_evo_test/presentation/theme/app_theme_extensions.dart';
+import 'package:mood_diary_evo_test/presentation/theme/app_theme_extension.dart';
 import 'package:mood_diary_evo_test/presentation/theme/text_styles.dart';
 import 'package:mood_diary_evo_test/presentation/theme/values.dart';
 
