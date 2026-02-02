@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mood_diary_evo_test/presentation/pages/home_page/home_page.dart';
+import 'package:mood_diary_evo_test/presentation/pages/home_page/widgets/slider_block.dart';
 import 'package:mood_diary_evo_test/presentation/theme/app_theme_extensions.dart';
 import 'package:mood_diary_evo_test/presentation/theme/palette.dart';
 
@@ -29,6 +30,20 @@ class MyApp extends StatelessWidget {
         progressIndicatorTheme: ProgressIndicatorThemeData(
           color: palette.accent,
         ),
+        sliderTheme: SliderThemeData(
+          activeTrackColor: palette.accent,
+          inactiveTrackColor: palette.grey5,
+          thumbColor: palette.accent,
+          disabledThumbColor: palette.grey5,
+          overlayColor: palette.accent.withAlpha(32),
+          thumbShape: RingSliderThumbShape(
+            strokeColor: palette.block
+          ),
+          activeTickMarkColor: Colors.transparent,
+          overlappingShapeStrokeColor: Colors.transparent,
+          secondaryActiveTrackColor: Colors.transparent,
+          valueIndicatorColor: Colors.transparent,
+        ),
         filledButtonTheme: FilledButtonThemeData(
           style: FilledButton.styleFrom(
             backgroundColor: palette.accent,
@@ -36,7 +51,7 @@ class MyApp extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
-          )
+          ),
         )
       ),
     );

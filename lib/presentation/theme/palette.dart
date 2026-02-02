@@ -9,6 +9,7 @@ class Palette {
   final Color grey2;
   final Color grey3;
   final Color grey4;
+  final Color grey5;
   final Color background;
 
   final LinearGradient orangeGradient;
@@ -21,6 +22,7 @@ class Palette {
     required this.grey2,
     required this.grey3,
     required this.grey4,
+    required this.grey5,
     required this.block,
     required this.text,
     required this.orangeGradient,
@@ -35,6 +37,7 @@ class Palette {
     grey2: const Color(0xFFBCBCBF),
     grey3: const Color(0xFFE8E8E8),
     grey4: const Color(0xFFF2F2F2),
+    grey5: const Color(0xFFE1DDD8),
     block: const Color(0xFFFFFFFF),
     text: const Color(0xFF4C4C69),
     accent: const Color(0xFFFF8702),
@@ -55,6 +58,7 @@ class Palette {
       grey2: Color.lerp(grey2, other.grey2, t)!,
       grey3: Color.lerp(grey3, other.grey3, t)!,
       grey4: Color.lerp(grey4, other.grey4, t)!,
+      grey5: Color.lerp(grey5, other.grey5, t)!,
       text: Color.lerp(text, other.text, t)!,
       textOnAccent: Color.lerp(textOnAccent, other.textOnAccent, t)!,
       block: Color.lerp(block, other.block, t)!,

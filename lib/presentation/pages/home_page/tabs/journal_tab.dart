@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mood_diary_evo_test/domain/enum/emotes.dart';
 import 'package:mood_diary_evo_test/presentation/pages/home_page/widgets/item_emote_widget.dart';
+import 'package:mood_diary_evo_test/presentation/pages/home_page/widgets/slider_block.dart';
 import 'package:mood_diary_evo_test/presentation/theme/app_theme_extensions.dart';
 import 'package:mood_diary_evo_test/presentation/theme/text_styles.dart';
 import 'package:mood_diary_evo_test/presentation/theme/values.dart';
@@ -43,6 +44,38 @@ class JournalTab extends StatelessWidget {
               padding: const EdgeInsets.only(left: pagePadding),
               child: Text(
                 "Уровень стресса",
+                style: TS.titleBlock.use(context.palette.text)
+              ),
+            ),
+            SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: pagePadding),
+              child: SliderBlock(
+                leftLabel: "Низкий",
+                rightLabel: "Высокий",
+              ),
+            ),
+            SizedBox(height: 26),
+            Padding(
+              padding: const EdgeInsets.only(left: pagePadding),
+              child: Text(
+                "Самооценка",
+                style: TS.titleBlock.use(context.palette.text)
+              ),
+            ),
+            SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: pagePadding),
+              child: SliderBlock(
+                leftLabel: "Неуверенность",
+                rightLabel: "Уверенность",
+              ),
+            ),
+            SizedBox(height: 36),
+            Padding(
+              padding: const EdgeInsets.only(left: pagePadding),
+              child: Text(
+                "Заметки",
                 style: TS.titleBlock.use(context.palette.text)
               ),
             ),
