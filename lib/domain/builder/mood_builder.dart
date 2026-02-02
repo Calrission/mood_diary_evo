@@ -60,6 +60,9 @@ class MoodBuilder {
   }
 
   MoodBuilder setNote(String note) {
+    if (note.isEmpty){
+      throw "Note should have a not empty value";
+    }
     _note = note;
     return this;
   }

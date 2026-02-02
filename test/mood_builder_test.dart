@@ -77,13 +77,23 @@ void main(){
     expect(
       () => builder.setSelfRate(1.1),
       throwsA(predicate(
-        ( e) => e == "SelfRate should have a value between 0 and 1"
+        (e) => e == "SelfRate should have a value between 0 and 1"
       ))
     );
     expect(
       () => builder.setSelfRate(-0.1),
       throwsA(predicate(
         (e) => e == "SelfRate should have a value between 0 and 1"
+      ))
+    );
+  });
+
+  test("Note should have a not empty value", (){
+    final builder = MoodBuilder();
+    expect(
+      () => builder.setNote(""),
+      throwsA(predicate(
+        (e) => e == "Note should have a not empty value"
       ))
     );
   });
