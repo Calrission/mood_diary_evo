@@ -7,7 +7,11 @@ class NoteBlock extends StatelessWidget {
   final TextEditingController controller;
   final void Function(String) onTextChanged;
 
-  const NoteBlock({super.key, required this.controller, required this.onTextChanged});
+  const NoteBlock({
+    super.key,
+    required this.controller,
+    required this.onTextChanged
+  });
 
   @override
   Widget build(BuildContext context) {

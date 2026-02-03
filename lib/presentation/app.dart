@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mood_diary_evo_test/presentation/pages/home_page/home_page.dart';
-import 'package:mood_diary_evo_test/presentation/pages/home_page/widgets/slider_block.dart';
+import 'package:mood_diary_evo_test/presentation/pages/home_page/tabs/journal_tab/widgets/slider_block.dart';
 import 'package:mood_diary_evo_test/presentation/theme/app_theme_extension.dart';
 import 'package:mood_diary_evo_test/presentation/theme/palette.dart';
 import 'package:mood_diary_evo_test/presentation/theme/text_styles.dart';

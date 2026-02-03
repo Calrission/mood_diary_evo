@@ -3,7 +3,6 @@ import 'package:mood_diary_evo_test/domain/entity/mood.dart';
 import 'package:mood_diary_evo_test/domain/enum/emotes.dart';
 import 'package:mood_diary_evo_test/domain/enum/sensations.dart';
 import 'package:mood_diary_evo_test/domain/builder/mood_builder.dart';
-import 'package:mood_diary_evo_test/domain/exceptions/empty_exception.dart';
 import 'package:mood_diary_evo_test/domain/exceptions/not_filled_exception.dart';
 import 'package:mood_diary_evo_test/domain/exceptions/wrong_order_exception.dart';
 
@@ -110,14 +109,9 @@ void main(){
     );
   });
 
-  test("Note should have a not empty value", (){
-    final builder = MoodBuilder();
-    expect(
-      () => builder.setNote(""),
-      throwsA(predicate(
-        (e) => e == EmptyFieldException(field: "note")
-      ))
-    );
+  test("When note is empty - it convert to null", (){
+    final builder = MoodBuilder().setNote("");
+    expect(builder.note, null);
   });
 
   test("Sensations must be conveyed first than emote", (){
@@ -139,5 +133,13 @@ void main(){
         (e) => e == WrongOrderException("Sensations must be contains in Emotes.sensations")
       ))
     );
+  });
+
+  test("Sensations is null when set new Emote", (){
+    final builder = MoodBuilder()
+        .setEmote(Emotes.sadness)
+        .setSensation(Sensations.mindfulness)
+        .setEmote(Emotes.happy);
+    expect(builder.sensation, null);
   });
 }

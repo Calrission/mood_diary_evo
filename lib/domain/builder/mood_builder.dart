@@ -1,28 +1,42 @@
 import 'package:mood_diary_evo_test/domain/entity/mood.dart';
 import 'package:mood_diary_evo_test/domain/enum/emotes.dart';
 import 'package:mood_diary_evo_test/domain/enum/sensations.dart';
-import 'package:mood_diary_evo_test/domain/exceptions/empty_exception.dart';
 import 'package:mood_diary_evo_test/domain/exceptions/not_filled_exception.dart';
 import 'package:mood_diary_evo_test/domain/exceptions/wrong_order_exception.dart';
 
 class MoodBuilder {
-  Emotes? _emote;
+  final Emotes? _emote;
   Emotes? get emote => _emote;
 
-  Sensations? _sensations;
-  Sensations? get sensations => _sensations;
+  final Sensations? _sensations;
+  Sensations? get sensation => _sensations;
 
-  double? _stress;
+  final double? _stress;
   double? get stress => _stress;
 
-  double? _selfRate;
+  final double? _selfRate;
   double? get selfRate => _selfRate;
 
-  String? _note;
+  final String? _note;
   String? get note => _note;
 
-  DateTime? _dateTime;
+  final DateTime? _dateTime;
   DateTime? get dateTime => _dateTime;
+
+  const MoodBuilder({
+    Emotes? emote,
+    Sensations? sensations,
+    double? stress,
+    double? selfRate,
+    String? note,
+    DateTime? dateTime
+  }):
+    _emote = emote,
+    _sensations = sensations,
+    _stress = stress,
+    _selfRate = selfRate,
+    _note = note,
+    _dateTime = dateTime;
 
   bool get isCompleted =>
     _emote != null &&
@@ -34,8 +48,18 @@ class MoodBuilder {
   ;
 
   MoodBuilder setEmote(Emotes emote) {
-    _emote = emote;
-    return this;
+    // copyWith тут не используется из-за `sensations: null` т.к. при
+    // изменении emote, старый sensations, который принадлежит прошлому emote,
+    // должен сбрасываться до null - что не поддерживает copyWith.
+    // (см. тест "Sensations is null when set new Emote")
+    return MoodBuilder(
+      emote: emote,
+      sensations: null,
+      stress: _stress,
+      selfRate: _selfRate,
+      note: _note,
+      dateTime: _dateTime
+    );
   }
 
   MoodBuilder setSensation(Sensations sensation) {
@@ -45,42 +69,48 @@ class MoodBuilder {
     if (!emote!.sensations.contains(sensation)){
       throw WrongOrderException("Sensations must be contains in Emotes.sensations");
     }
-    _sensations = sensation;
-    return this;
+    return copyWith(sensations: sensation);
   }
 
   MoodBuilder setStress(double stress) {
     if (stress < 0 || stress > 1){
       throw RangeError.range(stress, 0, 1, "stress");
     }
-    _stress = stress;
-    return this;
+    return copyWith(stress: stress);
   }
 
   MoodBuilder setSelfRate(double selfRate) {
     if (selfRate < 0 || selfRate > 1){
       throw RangeError.range(selfRate, 0, 1, "selfRate");
     }
-    _selfRate = selfRate;
-    return this;
+    return copyWith(selfRate: selfRate);
   }
 
   MoodBuilder setNote(String note) {
     if (note.isEmpty){
-      throw EmptyFieldException(field: "note");
+      // copyWith тут не используется из-за `note: null` т.к. при
+      // изменении note, новый note может быть пустой строкой и в таком случае
+      // его необходимо сбросить до null - что не поддерживает copyWith.
+      // (см. тест "When note is empty - it convert to null")
+      return MoodBuilder(
+        emote: _emote,
+        sensations: _sensations,
+        stress: _stress,
+        selfRate: _selfRate,
+        note: null,
+        dateTime: _dateTime
+      );
     }
-    _note = note;
-    return this;
+    return copyWith(note: note);
   }
 
   MoodBuilder setDateTime(DateTime dateTime){
-    _dateTime = dateTime;
-    return this;
+    return copyWith(dateTime: dateTime);
   }
 
   Mood build() {
     if (_emote == null){
-      throw NotFilledFieldException(field: "emote ");
+      throw NotFilledFieldException(field: "emote");
     }
     if (_sensations == null){
       throw NotFilledFieldException(field: "sensations");
@@ -98,12 +128,30 @@ class MoodBuilder {
       throw NotFilledFieldException(field: "dateTime");
     }
     return Mood(
-      emote: _emote!,
-      sensations: _sensations!,
-      stress: _stress!,
-      selfRate: _selfRate!,
-      note: _note!,
-      dateTime: _dateTime!
+      emote: _emote,
+      sensations: _sensations,
+      stress: _stress,
+      selfRate: _selfRate,
+      note: _note,
+      dateTime: _dateTime
+    );
+  }
+
+  MoodBuilder copyWith({
+    Emotes? emote,
+    Sensations? sensations,
+    double? stress,
+    double? selfRate,
+    String? note,
+    DateTime? dateTime,
+  }) {
+    return MoodBuilder(
+      emote: emote ?? _emote,
+      sensations: sensations ?? _sensations,
+      stress: stress ?? _stress,
+      selfRate: selfRate ?? _selfRate,
+      note: note ?? _note,
+      dateTime: dateTime ?? _dateTime
     );
   }
 }

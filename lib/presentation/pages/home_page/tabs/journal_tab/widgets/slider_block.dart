@@ -2,25 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:mood_diary_evo_test/presentation/theme/app_theme_extension.dart';
 import 'package:mood_diary_evo_test/presentation/theme/text_styles.dart';
 
-class SliderBlock extends StatefulWidget {
+class SliderBlock extends StatelessWidget {
   final bool enabled;
   final String leftLabel;
   final String rightLabel;
+  final double value;
+  final void Function(double) onChanged;
 
   const SliderBlock({
     super.key,
     required this.leftLabel,
     required this.rightLabel,
+    required this.value,
+    required this.onChanged,
     this.enabled = true,
   });
-
-  @override
-  State<SliderBlock> createState() => _SliderBlockState();
-}
-
-class _SliderBlockState extends State<SliderBlock> {
-
-  double value = 0.5;
 
   @override
   Widget build(BuildContext context) {
@@ -51,19 +47,15 @@ class _SliderBlockState extends State<SliderBlock> {
           SizedBox(height: 2),
           Slider(
             value: value,
-            onChanged: (widget.enabled) ? (double value) {
-              setState(() {
-                this.value = value;
-              });
-            } : null,
             padding: EdgeInsets.zero,
+            onChanged: enabled ? onChanged : null,
           ),
           SizedBox(height: 2),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(widget.leftLabel, style: TS.label.use(context.palette.grey2)),
-              Text(widget.rightLabel, style: TS.label.use(context.palette.grey2)),
+              Text(leftLabel, style: TS.label.use(context.palette.grey2)),
+              Text(rightLabel, style: TS.label.use(context.palette.grey2)),
             ],
           )
         ],

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mood_diary_evo_test/domain/enum/emotes.dart';
-import 'package:mood_diary_evo_test/presentation/pages/home_page/widgets/item_emote_widget.dart';
 import 'package:mood_diary_evo_test/presentation/theme/values.dart';
+
+import 'item_emote_widget.dart';
 
 class ChooseEmoteWidget extends StatefulWidget {
 

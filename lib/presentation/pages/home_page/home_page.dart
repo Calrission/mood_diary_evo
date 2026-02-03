@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mood_diary_evo_test/presentation/pages/home_page/bloc/home_mode_cubit.dart';
-import 'package:mood_diary_evo_test/presentation/pages/home_page/tabs/journal_tab.dart';
+import 'package:mood_diary_evo_test/presentation/pages/home_page/tabs/journal_tab/journal_tab.dart';
 import 'package:mood_diary_evo_test/presentation/pages/home_page/tabs/statistic_tab.dart';
 import 'package:mood_diary_evo_test/presentation/pages/home_page/widgets/home_app_bar.dart';
 import 'package:mood_diary_evo_test/presentation/pages/home_page/widgets/home_mode_switcher.dart';
@@ -41,9 +41,14 @@ class _HomePageState extends State<HomePage> {
             SizedBox(height: 15),
             NotificationListener<ScrollNotification>(
               onNotification: (notification) {
-                setState(() {
-                  _scrolledInTabs[cubit.state] = notification.metrics.pixels > 0;
-                });
+                if (
+                  notification.metrics.axisDirection == AxisDirection.down ||
+                  notification.metrics.axisDirection == AxisDirection.up
+                ) {
+                  setState(() {
+                    _scrolledInTabs[cubit.state] = notification.metrics.pixels > 0;
+                  });
+                }
                 return false;
               },
               child: Expanded(
@@ -56,8 +61,8 @@ class _HomePageState extends State<HomePage> {
                         AnimatedCrossFade(
                           duration: const Duration(milliseconds: 300),
                           crossFadeState: (_scrolledInTabs[cubit.state]!)
-                              ? CrossFadeState.showFirst
-                              : CrossFadeState.showSecond,
+                            ? CrossFadeState.showFirst
+                            : CrossFadeState.showSecond,
                           firstChild: Divider(height: 2, color: context.palette.grey5),
                           secondChild: const SizedBox(height: 2),
                         ),
