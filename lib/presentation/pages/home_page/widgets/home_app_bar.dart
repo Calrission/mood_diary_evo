@@ -1,7 +1,7 @@
-import 'package:datetime_loop/datetime_loop.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mood_diary_evo_test/core/extensions/date_time_extension.dart';
+import 'package:mood_diary_evo_test/presentation/pages/home_page/bloc/home_datetime_cubit/home_datetime_cubit.dart';
 import 'package:mood_diary_evo_test/presentation/theme/app_theme_extension.dart';
 import 'package:mood_diary_evo_test/presentation/theme/text_styles.dart';
 import 'package:mood_diary_evo_test/presentation/theme/values.dart';
@@ -22,17 +22,25 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
         children: [
           SizedBox.square(dimension: 24),
           Expanded(
-            child: DateTimeLoopBuilder(
-              timeUnit: TimeUnit.minutes,
-              builder: (context, dateTime, child) {
+            child: BlocBuilder<HomeDateTimeCubit, HomeDateTimeState>(
+              builder: (context, state){
                 return Text(
-                  dateTime.ddMMMMHHmm(),
+                  state.display,
                   textAlign: TextAlign.center,
                   style: TS.title.use(context.palette.grey2),
                 );
               }
-          )),
-          SvgPicture.asset("assets/icons/calendar.svg")
+            )
+          ),
+          GestureDetector(
+            onTap: (){
+              // @TODO
+              context.read<HomeDateTimeCubit>().setDateTime(
+                DateTime.now().add(Duration(days: 1))
+              );
+            },
+            child: SvgPicture.asset("assets/icons/calendar.svg")
+          )
         ],
       ),
     );

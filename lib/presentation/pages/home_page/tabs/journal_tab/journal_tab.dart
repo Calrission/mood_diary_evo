@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mood_diary_evo_test/presentation/pages/home_page/tabs/journal_tab/bloc/journal_bloc.dart';
+import 'package:mood_diary_evo_test/presentation/pages/home_page/tabs/journal_tab/bloc/journal_bloc/journal_bloc.dart';
 import 'package:mood_diary_evo_test/presentation/pages/home_page/tabs/journal_tab/widgets/choose_emote_widget.dart';
 import 'package:mood_diary_evo_test/presentation/pages/home_page/tabs/journal_tab/widgets/choose_sensation_widget.dart';
 import 'package:mood_diary_evo_test/presentation/pages/home_page/tabs/journal_tab/widgets/note_block.dart';
