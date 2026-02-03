@@ -11,18 +11,29 @@ import 'package:mood_diary_evo_test/presentation/theme/values.dart';
 import 'package:mood_diary_evo_test/presentation/widgets/app_ink_well.dart';
 
 class CalendarPage extends StatelessWidget {
-  const CalendarPage({super.key});
+  CalendarPage({super.key});
+
+  final ScrollController _controller = ScrollController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CalendarAppBar(),
+      appBar: CalendarAppBar(
+        onTodayTap: (){
+          final currentDateTime = DateTime.now();
+          context.read<HomeDateTimeCubit>().setDateTime(currentDateTime);
+          _controller.jumpTo(
+            (currentDateTime.month - 1) * 300
+          );
+        },
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: pagePadding,
           vertical: 12,
         ),
         child: CustomScrollView(
+          controller: _controller,
           slivers: List.generate(12, (index) {
             return SliverPadding(
               padding: const EdgeInsets.only(bottom: 28),
@@ -43,6 +54,7 @@ class _MonthCalendarItem extends StatelessWidget {
   final DateTime monthDateTime;
 
   const _MonthCalendarItem({
+    super.key,
     required this.monthDateTime,
   });
 

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mood_diary_evo_test/presentation/pages/home_page/bloc/home_datetime_cubit/home_datetime_cubit.dart';
 import 'package:mood_diary_evo_test/presentation/theme/app_theme_extension.dart';
 import 'package:mood_diary_evo_test/presentation/theme/text_styles.dart';
 import 'package:mood_diary_evo_test/presentation/theme/values.dart';
 import 'package:mood_diary_evo_test/presentation/widgets/app_ink_well.dart';
 
 class CalendarAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CalendarAppBar({super.key});
+  const CalendarAppBar({super.key, required this.onTodayTap});
+
+  final VoidCallback onTodayTap;
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +42,7 @@ class CalendarAppBar extends StatelessWidget implements PreferredSizeWidget {
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: GestureDetector(
-                    onTap: (){
-                      context.read<HomeDateTimeCubit>().setDateTime(DateTime.now());
-                    },
+                    onTap: onTodayTap,
                     child: Text(
                       "Сегодня",
                       style: TS.calendarToday.use(context.palette.grey2)
