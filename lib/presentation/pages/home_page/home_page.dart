@@ -57,7 +57,7 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       AnimatedCrossFade(
                         duration: const Duration(milliseconds: 300),
-                        crossFadeState: (_scrolledInTabs[cubit.state]!)
+                        crossFadeState: (_scrolledInTabs[state]!)
                           ? CrossFadeState.showFirst
                           : CrossFadeState.showSecond,
                         firstChild: Divider(
