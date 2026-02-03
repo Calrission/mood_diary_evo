@@ -1,9 +1,16 @@
+import 'package:datetime_loop/datetime_loop.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mood_diary_evo_test/domain/builder/mood_builder.dart';
+import 'package:mood_diary_evo_test/presentation/pages/home_page/bloc/home_datetime_cubit/home_datetime_cubit.dart';
+import 'package:mood_diary_evo_test/presentation/pages/home_page/bloc/home_mode_cubit/home_mode_cubit.dart';
 import 'package:mood_diary_evo_test/presentation/pages/home_page/home_page.dart';
+import 'package:mood_diary_evo_test/presentation/pages/home_page/tabs/journal_tab/bloc/journal_bloc/journal_bloc.dart';
 import 'package:mood_diary_evo_test/presentation/pages/home_page/tabs/journal_tab/widgets/slider_block.dart';
 import 'package:mood_diary_evo_test/presentation/theme/app_theme_extension.dart';
 import 'package:mood_diary_evo_test/presentation/theme/palette.dart';
 import 'package:mood_diary_evo_test/presentation/theme/text_styles.dart';
+import 'package:mood_diary_evo_test/presentation/theme/values.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -14,7 +21,24 @@ class MyApp extends StatelessWidget {
     final palette = appThemeExtension.palette;
     return MaterialApp(
       title: 'Flutter Demo',
-      home: const HomePage(),
+      home: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => HomeModeCubit()),
+          BlocProvider(
+            create: (context) => HomeDateTimeCubit(
+              dateTimeLoopController: DateTimeLoopController(timeUnit: TimeUnit.minutes)
+            ),
+          ),
+          BlocProvider(
+            create: (context) => JournalBloc(MoodBuilder(
+              selfRate: defaultSelfRate,
+              stress: defaultStressLevel,
+              dateTime: DateTime.now()
+            ))
+          )
+        ],
+        child: const HomePage()
+      ),
       theme: ThemeData(
         colorScheme: .fromSeed(seedColor: palette.accent),
         extensions: [appThemeExtension],

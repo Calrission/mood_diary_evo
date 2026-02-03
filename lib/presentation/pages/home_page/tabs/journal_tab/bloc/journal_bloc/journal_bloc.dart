@@ -9,14 +9,9 @@ part 'journal_state.dart';
 
 class JournalBloc extends Bloc<JournalEvent, JournalState> {
 
-  static final _defaultMoodBuilder = MoodBuilder(
-    selfRate: 0.5,
-    stress: 0.5,
-    dateTime: DateTime(2026, 01, 01)
-  );
+  final MoodBuilder _defaultMoodBuilder;
 
-
-  JournalBloc() : super(JournalState(_defaultMoodBuilder)) {
+  JournalBloc(this._defaultMoodBuilder) : super(JournalState(_defaultMoodBuilder)) {
     on<ChooseEmoteJournalEvent>((event, emit) {
       emit(JournalState(state.builder.setEmote(event.emote)));
     });
@@ -32,8 +27,13 @@ class JournalBloc extends Bloc<JournalEvent, JournalState> {
     on<SetNoteJournalEvent>((event, emit) {
       emit(JournalState(state.builder.setNote(event.note)));
     });
+    on<SetDateTimeJournalEvent>((event, emit) {
+      emit(JournalState(state.builder.setDateTime(event.dateTime)));
+    });
     on<SaveJournalEvent>((event, emit) {
-      emit(JournalState(_defaultMoodBuilder));
+      emit(JournalState(
+        _defaultMoodBuilder.copyWith(dateTime: state.builder.dateTime)
+      ));
     });
   }
 }

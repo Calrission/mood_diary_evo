@@ -49,6 +49,15 @@ final class SetNoteJournalEvent extends JournalEvent {
   List<Object?> get props => [note];
 }
 
+final class SetDateTimeJournalEvent extends JournalEvent {
+  final DateTime dateTime;
+
+  const SetDateTimeJournalEvent({required this.dateTime});
+
+  @override
+  List<Object?> get props => [dateTime];
+}
+
 final class SaveJournalEvent extends JournalEvent {
   @override
   List<Object?> get props => [];

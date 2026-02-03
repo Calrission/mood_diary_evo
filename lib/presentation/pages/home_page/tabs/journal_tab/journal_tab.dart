@@ -14,115 +14,115 @@ class JournalTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final noteController = TextEditingController();
-    return BlocProvider(
-      create: (context) => JournalBloc(),
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: BlocBuilder<JournalBloc, JournalState>(
-            builder: (context, state) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 15),
-                  Padding(
-                    padding: const EdgeInsets.only(left: pagePadding),
-                    child: Text(
-                      "Что чувствуешь?",
-                      style: TS.titleBlock.use(context.palette.text)
-                    ),
-                  ),
-                  SizedBox(height: 20),
-                  ChooseEmoteWidget(
-                    onChoose: (emote) {
-                      context.read<JournalBloc>().add(
-                        ChooseEmoteJournalEvent(emote: emote)
-                      );
-                    }
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: pagePadding
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        if (state.showSensations)
-                          Padding(
-                            padding: const EdgeInsets.only(top: 20),
-                            child: ChooseSensationWidget(
-                              selected: state.builder.sensation,
-                              sensations: state.builder.emote!.sensations,
-                              onChoose: (sensation) {
-                                context.read<JournalBloc>().add(
-                                  ChooseSensationJournalEvent(sensation: sensation)
-                                );
-                              },
-                            ),
-                          ),
-                        SizedBox(height: 26),
-                        Text(
-                          "Уровень стресса",
-                          style: TS.titleBlock.use(context.palette.text)
-                        ),
-                        SizedBox(height: 20),
-                        SliderBlock(
-                          enabled: state.enableStress,
-                          leftLabel: "Низкий",
-                          rightLabel: "Высокий",
-                          value: state.builder.stress ?? 0.5,
-                          onChanged: (value){
-                            context.read<JournalBloc>().add(
-                              SetStressJournalEvent(stress: value)
-                            );
-                          },
-                        ),
-                        SizedBox(height: 26),
-                        Text(
-                          "Самооценка",
-                          style: TS.titleBlock.use(context.palette.text)
-                        ),
-                        SizedBox(height: 20),
-                        SliderBlock(
-                          enabled: state.enableSelfRate,
-                          leftLabel: "Неуверенность",
-                          rightLabel: "Уверенность",
-                          value: state.builder.selfRate ?? 0.5,
-                          onChanged: (value){
-                            context.read<JournalBloc>().add(
-                              SetSelfRateJournalEvent(selfRate: value)
-                            );
-                          },
-                        ),
-                        SizedBox(height: 36),
-                        Text(
-                          "Заметки",
-                          style: TS.titleBlock.use(context.palette.text)
-                        ),
-                        SizedBox(height: 20),
-                        NoteBlock(
-                          controller: noteController,
-                          onTextChanged: (newText) {
-                            context.read<JournalBloc>().add(
-                              SetNoteJournalEvent(note: newText)
-                            );
-                          },
-                        ),
-                        SizedBox(height: 16),
-                        FilledButton(
-                          onPressed: state.enableSaveButton ? () {
 
-                          } : null,
-                          child: Text("Сохранить")
-                        ),
-                        SizedBox(height: 46),
-                      ],
-                    ),
+    final journalBloc = context.read<JournalBloc>();
+
+    final noteController = TextEditingController();
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: BlocBuilder<JournalBloc, JournalState>(
+          builder: (context, state) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 15),
+                Padding(
+                  padding: const EdgeInsets.only(left: pagePadding),
+                  child: Text(
+                    "Что чувствуешь?",
+                    style: TS.titleBlock.use(context.palette.text)
                   ),
-                ],
-              );
-            },
-          ),
+                ),
+                SizedBox(height: 20),
+                ChooseEmoteWidget(
+                  onChoose: (emote) {
+                    journalBloc.add(
+                      ChooseEmoteJournalEvent(emote: emote)
+                    );
+                  }
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: pagePadding
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (state.showSensations)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 20),
+                          child: ChooseSensationWidget(
+                            selected: state.builder.sensation,
+                            sensations: state.builder.emote!.sensations,
+                            onChoose: (sensation) {
+                              journalBloc.add(
+                                ChooseSensationJournalEvent(sensation: sensation)
+                              );
+                            },
+                          ),
+                        ),
+                      SizedBox(height: 26),
+                      Text(
+                        "Уровень стресса",
+                        style: TS.titleBlock.use(context.palette.text)
+                      ),
+                      SizedBox(height: 20),
+                      SliderBlock(
+                        enabled: state.enableStress,
+                        leftLabel: "Низкий",
+                        rightLabel: "Высокий",
+                        value: state.builder.stress ?? defaultStressLevel,
+                        onChanged: (value){
+                          journalBloc.add(
+                            SetStressJournalEvent(stress: value)
+                          );
+                        },
+                      ),
+                      SizedBox(height: 26),
+                      Text(
+                        "Самооценка",
+                        style: TS.titleBlock.use(context.palette.text)
+                      ),
+                      SizedBox(height: 20),
+                      SliderBlock(
+                        enabled: state.enableSelfRate,
+                        leftLabel: "Неуверенность",
+                        rightLabel: "Уверенность",
+                        value: state.builder.selfRate ?? defaultSelfRate,
+                        onChanged: (value){
+                          journalBloc.add(
+                            SetSelfRateJournalEvent(selfRate: value)
+                          );
+                        },
+                      ),
+                      SizedBox(height: 36),
+                      Text(
+                        "Заметки",
+                        style: TS.titleBlock.use(context.palette.text)
+                      ),
+                      SizedBox(height: 20),
+                      NoteBlock(
+                        controller: noteController,
+                        onTextChanged: (newText) {
+                          journalBloc.add(
+                            SetNoteJournalEvent(note: newText)
+                          );
+                        },
+                      ),
+                      SizedBox(height: 16),
+                      FilledButton(
+                        onPressed: state.enableSaveButton ? () {
+
+                        } : null,
+                        child: Text("Сохранить")
+                      ),
+                      SizedBox(height: 46),
+                    ],
+                  ),
+                ),
+              ],
+            );
+          },
         ),
       ),
     );
