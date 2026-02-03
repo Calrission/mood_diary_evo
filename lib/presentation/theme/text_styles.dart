@@ -19,11 +19,13 @@ abstract class TS {
 
   static TextStyle calendarYear = GoogleFonts.nunito(
     fontSize: 16,
+    height: 0.9,
     fontWeight: FontWeight.bold
   );
 
   static TextStyle calendarMonth = GoogleFonts.nunito(
     fontSize: 24,
+    height: 0.8,
     fontWeight: FontWeight.bold
   );
 

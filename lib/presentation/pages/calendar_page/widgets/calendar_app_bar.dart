@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mood_diary_evo_test/presentation/pages/home_page/bloc/home_datetime_cubit/home_datetime_cubit.dart';
 import 'package:mood_diary_evo_test/presentation/theme/app_theme_extension.dart';
 import 'package:mood_diary_evo_test/presentation/theme/text_styles.dart';
 import 'package:mood_diary_evo_test/presentation/theme/values.dart';
@@ -13,19 +15,20 @@ class CalendarAppBar extends StatelessWidget implements PreferredSizeWidget {
     return Padding(
       padding: const EdgeInsets.only(
         top: 49,
-        left: 10,
-        bottom: 8,
+        left: calendarAppBarLeftOffset,
+        bottom: 18,
         right: pagePadding
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Row(
+            spacing: 8,
             children: [
               AppInkWell(
                 borderRadius: BorderRadius.circular(90),
                 onTap: (){
-
+                  Navigator.pop(context);
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -38,9 +41,14 @@ class CalendarAppBar extends StatelessWidget implements PreferredSizeWidget {
               Expanded(
                 child: Align(
                   alignment: Alignment.centerRight,
-                  child: Text(
-                    "Сегодня",
-                    style: TS.calendarToday.use(context.palette.grey2)
+                  child: GestureDetector(
+                    onTap: (){
+                      context.read<HomeDateTimeCubit>().setDateTime(DateTime.now());
+                    },
+                    child: Text(
+                      "Сегодня",
+                      style: TS.calendarToday.use(context.palette.grey2)
+                    ),
                   ),
                 )
               )
@@ -48,8 +56,9 @@ class CalendarAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
           SizedBox(height: 18),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: EdgeInsets.only(left: 10),
             child: Row(
+              spacing: 8,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _WeekdayCalendarItem(text: "ПН"),
@@ -79,6 +88,17 @@ class _WeekdayCalendarItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(text, style: TS.calendarWeekdays.use(context.palette.grey2));
+    final w = MediaQuery.sizeOf(context).width;
+    final cellW = (w - calendarWeekdayLeftOffset - calendarAppBarLeftOffset -
+        pagePadding - 6*calendarPaddingBetweenDays) / 7;
+    return SizedBox(
+      width: cellW,
+      child: Center(
+        child: Text(
+          text,
+          style: TS.calendarWeekdays.use(context.palette.grey2)
+        ),
+      )
+    );
   }
 }
