@@ -10,6 +10,6 @@ class MoodRepositoryImpl implements MoodRepository {
   @override
   Future<void> sendMood(Mood mood) {
     // Тут была бы логика обращения к серверу
-    return Future.delayed(Duration(milliseconds: 300));
+    return Future.delayed(Duration(milliseconds: 500));
   }
 }

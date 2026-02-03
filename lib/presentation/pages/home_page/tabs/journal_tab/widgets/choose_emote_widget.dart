@@ -4,19 +4,12 @@ import 'package:mood_diary_evo_test/presentation/theme/values.dart';
 
 import 'item_emote_widget.dart';
 
-class ChooseEmoteWidget extends StatefulWidget {
+class ChooseEmoteWidget extends StatelessWidget {
 
   final void Function(Emotes) onChoose;
+  final Emotes? selected;
 
-  const ChooseEmoteWidget({super.key, required this.onChoose});
-
-  @override
-  State<ChooseEmoteWidget> createState() => _ChooseEmoteWidgetState();
-}
-
-class _ChooseEmoteWidgetState extends State<ChooseEmoteWidget> {
-
-  Emotes? currEmote;
+  const ChooseEmoteWidget({super.key, required this.onChoose, this.selected});
 
   @override
   Widget build(BuildContext context) {
@@ -27,13 +20,8 @@ class _ChooseEmoteWidgetState extends State<ChooseEmoteWidget> {
           final emote = Emotes.values[index];
           return ItemEmoteWidget(
             emote: emote,
-            isSelected: currEmote == emote,
-            onChoose: () {
-              setState(() {
-                currEmote = emote;
-              });
-              widget.onChoose(currEmote!);
-            }
+            isSelected: selected == emote,
+            onChoose: () => onChoose(emote)
           );
         },
         separatorBuilder: (_, _) => SizedBox(width: 12),

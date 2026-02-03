@@ -63,3 +63,8 @@ final class SaveJournalEvent extends JournalEvent {
   List<Object?> get props => [];
 }
 
+final class ResetJournalEvent extends JournalEvent {
+  @override
+  List<Object?> get props => [];
+}
+

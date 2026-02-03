@@ -5,27 +5,50 @@ import 'package:mood_diary_evo_test/presentation/pages/home_page/tabs/journal_ta
 import 'package:mood_diary_evo_test/presentation/pages/home_page/tabs/journal_tab/widgets/choose_sensation_widget.dart';
 import 'package:mood_diary_evo_test/presentation/pages/home_page/tabs/journal_tab/widgets/note_block.dart';
 import 'package:mood_diary_evo_test/presentation/pages/home_page/tabs/journal_tab/widgets/slider_block.dart';
+import 'package:mood_diary_evo_test/presentation/pages/home_page/tabs/journal_tab/widgets/success_dialog.dart';
+import 'package:mood_diary_evo_test/presentation/widgets/loading_dialog.dart';
 import 'package:mood_diary_evo_test/presentation/theme/app_theme_extension.dart';
 import 'package:mood_diary_evo_test/presentation/theme/text_styles.dart';
 import 'package:mood_diary_evo_test/presentation/theme/values.dart';
+import 'package:mood_diary_evo_test/presentation/utils/exception_localizer.dart';
 
 class JournalTab extends StatelessWidget {
   const JournalTab({super.key});
 
   @override
   Widget build(BuildContext context) {
-
     final journalBloc = context.read<JournalBloc>();
-
     final noteController = TextEditingController();
+    final noteFocusNode = FocusNode();
+
     return Scaffold(
       body: SingleChildScrollView(
-        child: BlocBuilder<JournalBloc, JournalState>(
+        child: BlocConsumer<JournalBloc, JournalState>(
+          listener: (context, state){
+            if (state.builder.note != noteController.text){
+              noteController.text = state.builder.note ?? "";
+            }
+            switch (state){
+              case LoadingJournalState _:
+                LoadingDialog.show(context: context);
+              case ErrorJournalState s:
+                final errorMessage = ExceptionLocalizer.localize(context, s.error);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text(errorMessage))
+                );
+              case SuccessSendJournalState _:
+                Navigator.of(context).pop();
+                SuccessDialog.show(context: context).then((_) async {
+                  journalBloc.add(ResetJournalEvent());
+                  noteFocusNode.unfocus();
+                });
+            }
+          },
           builder: (context, state) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 15),
+                const SizedBox(height: 15),
                 Padding(
                   padding: const EdgeInsets.only(left: pagePadding),
                   child: Text(
@@ -33,17 +56,18 @@ class JournalTab extends StatelessWidget {
                     style: TS.titleBlock.use(context.palette.text)
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 ChooseEmoteWidget(
+                  selected: state.builder.emote,
                   onChoose: (emote) {
                     journalBloc.add(
-                      ChooseEmoteJournalEvent(emote: emote)
+                        ChooseEmoteJournalEvent(emote: emote)
                     );
                   }
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: pagePadding
+                      horizontal: pagePadding
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,17 +80,17 @@ class JournalTab extends StatelessWidget {
                             sensations: state.builder.emote!.sensations,
                             onChoose: (sensation) {
                               journalBloc.add(
-                                ChooseSensationJournalEvent(sensation: sensation)
+                                  ChooseSensationJournalEvent(sensation: sensation)
                               );
                             },
                           ),
                         ),
-                      SizedBox(height: 26),
+                      const SizedBox(height: 26),
                       Text(
                         "Уровень стресса",
                         style: TS.titleBlock.use(context.palette.text)
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       SliderBlock(
                         enabled: state.enableStress,
                         leftLabel: "Низкий",
@@ -74,16 +98,16 @@ class JournalTab extends StatelessWidget {
                         value: state.builder.stress ?? defaultStressLevel,
                         onChanged: (value){
                           journalBloc.add(
-                            SetStressJournalEvent(stress: value)
+                              SetStressJournalEvent(stress: value)
                           );
                         },
                       ),
-                      SizedBox(height: 26),
+                      const SizedBox(height: 26),
                       Text(
-                        "Самооценка",
-                        style: TS.titleBlock.use(context.palette.text)
+                          "Самооценка",
+                          style: TS.titleBlock.use(context.palette.text)
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       SliderBlock(
                         enabled: state.enableSelfRate,
                         leftLabel: "Неуверенность",
@@ -91,32 +115,34 @@ class JournalTab extends StatelessWidget {
                         value: state.builder.selfRate ?? defaultSelfRate,
                         onChanged: (value){
                           journalBloc.add(
-                            SetSelfRateJournalEvent(selfRate: value)
+                              SetSelfRateJournalEvent(selfRate: value)
                           );
                         },
                       ),
-                      SizedBox(height: 36),
+                      const SizedBox(height: 36),
                       Text(
                         "Заметки",
                         style: TS.titleBlock.use(context.palette.text)
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       NoteBlock(
                         controller: noteController,
+                        focusNode: noteFocusNode,
                         onTextChanged: (newText) {
                           journalBloc.add(
-                            SetNoteJournalEvent(note: newText)
+                              SetNoteJournalEvent(note: newText)
                           );
                         },
                       ),
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
                       FilledButton(
                         onPressed: state.enableSaveButton ? () {
-
+                          FocusScope.of(context).unfocus();
+                          journalBloc.add(SaveJournalEvent());
                         } : null,
-                        child: Text("Сохранить")
+                        child: const Text("Сохранить")
                       ),
-                      SizedBox(height: 46),
+                      const SizedBox(height: 46),
                     ],
                   ),
                 ),
