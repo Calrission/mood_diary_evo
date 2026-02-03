@@ -36,6 +36,12 @@ class MoodBuilder {
   }
 
   MoodBuilder setSensation(Sensations sensation) {
+    if (emote == null){
+      throw "Sensations must be conveyed first than emote";
+    }
+    if (!emote!.sensations.contains(sensation)){
+      throw "Sensations must be contains in Emotes.sensations";
+    }
     _sensations = sensation;
     return this;
   }

@@ -100,4 +100,25 @@ void main(){
       ))
     );
   });
+
+  test("Sensations must be conveyed first than emote", (){
+    final builder = MoodBuilder();
+    expect(
+      () => builder.setSensation(Sensations.charm),
+      throwsA(predicate(
+        (e) => e == "Sensations must be conveyed first than emote"
+      ))
+    );
+  });
+
+  test("Sensations must be contains in Emotes.sensations", (){
+    final builder = MoodBuilder()
+      .setEmote(Emotes.sadness);
+    expect(
+      () => builder.setSensation(Sensations.charm),
+      throwsA(predicate(
+        (e) => e == "Sensations must be contains in Emotes.sensations"
+      ))
+    );
+  });
 }
