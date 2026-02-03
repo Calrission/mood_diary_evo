@@ -11,40 +11,70 @@ import 'package:mood_diary_evo_test/presentation/theme/values.dart';
 import 'package:mood_diary_evo_test/presentation/widgets/app_ink_well.dart';
 
 class CalendarPage extends StatelessWidget {
-  CalendarPage({super.key});
-
-  final ScrollController _controller = ScrollController();
+  const CalendarPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final yearController = ScrollController();
+    final pageController = PageController(
+      initialPage: context.read<HomeDateTimeCubit>().state.dateTime.year - 1
+    );
+
     return Scaffold(
       appBar: CalendarAppBar(
         onTodayTap: (){
           final currentDateTime = DateTime.now();
           context.read<HomeDateTimeCubit>().setDateTime(currentDateTime);
-          _controller.jumpTo(
-            (currentDateTime.month - 1) * 300
-          );
+          pageController.jumpToPage(currentDateTime.year - 1);
+          Future.delayed(Duration(milliseconds: 200)).then((_){
+            yearController.jumpTo(
+                (currentDateTime.month - 1) * 200
+            );
+          });
         },
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: pagePadding,
-          vertical: 12,
-        ),
-        child: CustomScrollView(
-          controller: _controller,
-          slivers: List.generate(12, (index) {
-            return SliverPadding(
-              padding: const EdgeInsets.only(bottom: 28),
-              sliver: _MonthCalendarItem(
-                monthDateTime: context.read<HomeDateTimeCubit>().state.dateTime.copyWith(
-                  month: index + 1
-                ),
+      body: PageView.builder(
+        controller: pageController,
+        itemBuilder: (BuildContext context, int index) {
+          return _YearPage(
+            year: index + 1,
+            controller: yearController
+          );
+        },
+        itemCount: 9999,
+      )
+    );
+  }
+}
+
+class _YearPage extends StatelessWidget {
+
+  final int year;
+  final ScrollController _yearController;
+
+  const _YearPage({
+    required this.year, required ScrollController controller
+  }) : _yearController = controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: pagePadding,
+        vertical: 12,
+      ),
+      child: CustomScrollView(
+        controller: _yearController,
+        slivers: List.generate(12, (index) {
+          return SliverPadding(
+            padding: const EdgeInsets.only(bottom: 28),
+            sliver: _MonthCalendarItem(
+              monthDateTime: DateTime(
+                year, index + 1, 1
               ),
-            );
-          }),
-        ),
+            ),
+          );
+        }),
       ),
     );
   }
@@ -54,7 +84,6 @@ class _MonthCalendarItem extends StatelessWidget {
   final DateTime monthDateTime;
 
   const _MonthCalendarItem({
-    super.key,
     required this.monthDateTime,
   });
 
