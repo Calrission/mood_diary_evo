@@ -12,7 +12,8 @@ abstract class Mood with _$Mood {
     required Sensations sensations,
     required double stress,
     required double selfRate,
-    required String note
+    required String note,
+    required DateTime dateTime
   }) = _Mood;
 
   factory Mood.fromJson(Map<String, dynamic> json) => _$MoodFromJson(json);

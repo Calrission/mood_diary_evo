@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Mood {
 
- Emotes get emote; Sensations get sensations; double get stress; double get selfRate; String get note;
+ Emotes get emote; Sensations get sensations; double get stress; double get selfRate; String get note; DateTime get dateTime;
 /// Create a copy of Mood
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $MoodCopyWith<Mood> get copyWith => _$MoodCopyWithImpl<Mood>(this as Mood, _$ide
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Mood&&(identical(other.emote, emote) || other.emote == emote)&&(identical(other.sensations, sensations) || other.sensations == sensations)&&(identical(other.stress, stress) || other.stress == stress)&&(identical(other.selfRate, selfRate) || other.selfRate == selfRate)&&(identical(other.note, note) || other.note == note));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Mood&&(identical(other.emote, emote) || other.emote == emote)&&(identical(other.sensations, sensations) || other.sensations == sensations)&&(identical(other.stress, stress) || other.stress == stress)&&(identical(other.selfRate, selfRate) || other.selfRate == selfRate)&&(identical(other.note, note) || other.note == note)&&(identical(other.dateTime, dateTime) || other.dateTime == dateTime));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,emote,sensations,stress,selfRate,note);
+int get hashCode => Object.hash(runtimeType,emote,sensations,stress,selfRate,note,dateTime);
 
 @override
 String toString() {
-  return 'Mood(emote: $emote, sensations: $sensations, stress: $stress, selfRate: $selfRate, note: $note)';
+  return 'Mood(emote: $emote, sensations: $sensations, stress: $stress, selfRate: $selfRate, note: $note, dateTime: $dateTime)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $MoodCopyWith<$Res>  {
   factory $MoodCopyWith(Mood value, $Res Function(Mood) _then) = _$MoodCopyWithImpl;
 @useResult
 $Res call({
- Emotes emote, Sensations sensations, double stress, double selfRate, String note
+ Emotes emote, Sensations sensations, double stress, double selfRate, String note, DateTime dateTime
 });
 
 
@@ -65,14 +65,15 @@ class _$MoodCopyWithImpl<$Res>
 
 /// Create a copy of Mood
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? emote = null,Object? sensations = null,Object? stress = null,Object? selfRate = null,Object? note = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? emote = null,Object? sensations = null,Object? stress = null,Object? selfRate = null,Object? note = null,Object? dateTime = null,}) {
   return _then(_self.copyWith(
 emote: null == emote ? _self.emote : emote // ignore: cast_nullable_to_non_nullable
 as Emotes,sensations: null == sensations ? _self.sensations : sensations // ignore: cast_nullable_to_non_nullable
 as Sensations,stress: null == stress ? _self.stress : stress // ignore: cast_nullable_to_non_nullable
 as double,selfRate: null == selfRate ? _self.selfRate : selfRate // ignore: cast_nullable_to_non_nullable
 as double,note: null == note ? _self.note : note // ignore: cast_nullable_to_non_nullable
-as String,
+as String,dateTime: null == dateTime ? _self.dateTime : dateTime // ignore: cast_nullable_to_non_nullable
+as DateTime,
   ));
 }
 
@@ -157,10 +158,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Emotes emote,  Sensations sensations,  double stress,  double selfRate,  String note)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Emotes emote,  Sensations sensations,  double stress,  double selfRate,  String note,  DateTime dateTime)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Mood() when $default != null:
-return $default(_that.emote,_that.sensations,_that.stress,_that.selfRate,_that.note);case _:
+return $default(_that.emote,_that.sensations,_that.stress,_that.selfRate,_that.note,_that.dateTime);case _:
   return orElse();
 
 }
@@ -178,10 +179,10 @@ return $default(_that.emote,_that.sensations,_that.stress,_that.selfRate,_that.n
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Emotes emote,  Sensations sensations,  double stress,  double selfRate,  String note)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Emotes emote,  Sensations sensations,  double stress,  double selfRate,  String note,  DateTime dateTime)  $default,) {final _that = this;
 switch (_that) {
 case _Mood():
-return $default(_that.emote,_that.sensations,_that.stress,_that.selfRate,_that.note);case _:
+return $default(_that.emote,_that.sensations,_that.stress,_that.selfRate,_that.note,_that.dateTime);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -198,10 +199,10 @@ return $default(_that.emote,_that.sensations,_that.stress,_that.selfRate,_that.n
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Emotes emote,  Sensations sensations,  double stress,  double selfRate,  String note)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Emotes emote,  Sensations sensations,  double stress,  double selfRate,  String note,  DateTime dateTime)?  $default,) {final _that = this;
 switch (_that) {
 case _Mood() when $default != null:
-return $default(_that.emote,_that.sensations,_that.stress,_that.selfRate,_that.note);case _:
+return $default(_that.emote,_that.sensations,_that.stress,_that.selfRate,_that.note,_that.dateTime);case _:
   return null;
 
 }
@@ -213,7 +214,7 @@ return $default(_that.emote,_that.sensations,_that.stress,_that.selfRate,_that.n
 @JsonSerializable()
 
 class _Mood implements Mood {
-  const _Mood({required this.emote, required this.sensations, required this.stress, required this.selfRate, required this.note});
+  const _Mood({required this.emote, required this.sensations, required this.stress, required this.selfRate, required this.note, required this.dateTime});
   factory _Mood.fromJson(Map<String, dynamic> json) => _$MoodFromJson(json);
 
 @override final  Emotes emote;
@@ -221,6 +222,7 @@ class _Mood implements Mood {
 @override final  double stress;
 @override final  double selfRate;
 @override final  String note;
+@override final  DateTime dateTime;
 
 /// Create a copy of Mood
 /// with the given fields replaced by the non-null parameter values.
@@ -235,16 +237,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Mood&&(identical(other.emote, emote) || other.emote == emote)&&(identical(other.sensations, sensations) || other.sensations == sensations)&&(identical(other.stress, stress) || other.stress == stress)&&(identical(other.selfRate, selfRate) || other.selfRate == selfRate)&&(identical(other.note, note) || other.note == note));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Mood&&(identical(other.emote, emote) || other.emote == emote)&&(identical(other.sensations, sensations) || other.sensations == sensations)&&(identical(other.stress, stress) || other.stress == stress)&&(identical(other.selfRate, selfRate) || other.selfRate == selfRate)&&(identical(other.note, note) || other.note == note)&&(identical(other.dateTime, dateTime) || other.dateTime == dateTime));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,emote,sensations,stress,selfRate,note);
+int get hashCode => Object.hash(runtimeType,emote,sensations,stress,selfRate,note,dateTime);
 
 @override
 String toString() {
-  return 'Mood(emote: $emote, sensations: $sensations, stress: $stress, selfRate: $selfRate, note: $note)';
+  return 'Mood(emote: $emote, sensations: $sensations, stress: $stress, selfRate: $selfRate, note: $note, dateTime: $dateTime)';
 }
 
 
@@ -255,7 +257,7 @@ abstract mixin class _$MoodCopyWith<$Res> implements $MoodCopyWith<$Res> {
   factory _$MoodCopyWith(_Mood value, $Res Function(_Mood) _then) = __$MoodCopyWithImpl;
 @override @useResult
 $Res call({
- Emotes emote, Sensations sensations, double stress, double selfRate, String note
+ Emotes emote, Sensations sensations, double stress, double selfRate, String note, DateTime dateTime
 });
 
 
@@ -272,14 +274,15 @@ class __$MoodCopyWithImpl<$Res>
 
 /// Create a copy of Mood
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? emote = null,Object? sensations = null,Object? stress = null,Object? selfRate = null,Object? note = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? emote = null,Object? sensations = null,Object? stress = null,Object? selfRate = null,Object? note = null,Object? dateTime = null,}) {
   return _then(_Mood(
 emote: null == emote ? _self.emote : emote // ignore: cast_nullable_to_non_nullable
 as Emotes,sensations: null == sensations ? _self.sensations : sensations // ignore: cast_nullable_to_non_nullable
 as Sensations,stress: null == stress ? _self.stress : stress // ignore: cast_nullable_to_non_nullable
 as double,selfRate: null == selfRate ? _self.selfRate : selfRate // ignore: cast_nullable_to_non_nullable
 as double,note: null == note ? _self.note : note // ignore: cast_nullable_to_non_nullable
-as String,
+as String,dateTime: null == dateTime ? _self.dateTime : dateTime // ignore: cast_nullable_to_non_nullable
+as DateTime,
   ));
 }
 

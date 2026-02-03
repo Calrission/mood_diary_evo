@@ -12,6 +12,7 @@ void main(){
 
   test("success mood send", () async {
     final mood = Mood(
+      dateTime: DateTime(2026, 02, 03, 00, 00, 00),
       emote: Emotes.happy,
       sensations: Sensations.sensuality,
       stress: 0.5,

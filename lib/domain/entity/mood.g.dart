@@ -12,6 +12,7 @@ _Mood _$MoodFromJson(Map<String, dynamic> json) => _Mood(
   stress: (json['stress'] as num).toDouble(),
   selfRate: (json['selfRate'] as num).toDouble(),
   note: json['note'] as String,
+  dateTime: DateTime.parse(json['dateTime'] as String),
 );
 
 Map<String, dynamic> _$MoodToJson(_Mood instance) => <String, dynamic>{
@@ -20,6 +21,7 @@ Map<String, dynamic> _$MoodToJson(_Mood instance) => <String, dynamic>{
   'stress': instance.stress,
   'selfRate': instance.selfRate,
   'note': instance.note,
+  'dateTime': instance.dateTime.toIso8601String(),
 };
 
 const _$EmotesEnumMap = {

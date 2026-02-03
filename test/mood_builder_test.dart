@@ -7,6 +7,7 @@ import 'package:mood_diary_evo_test/domain/builder/mood_builder.dart';
 void main(){
   test("Success build when complete builder", (){
     final builder = MoodBuilder()
+      .setDateTime(DateTime(2026, 02, 03, 00, 00, 00))
       .setEmote(Emotes.happy)
       .setSensation(Sensations.sensuality)
       .setStress(0.5)
@@ -19,7 +20,8 @@ void main(){
       sensations: Sensations.sensuality,
       stress: 0.5,
       selfRate: 0.5,
-      note: "Сегодня я чувствую себя хорошо!"
+      dateTime: DateTime(2026, 02, 03, 00, 00, 00),
+      note: "Сегодня я чувствую себя хорошо!",
     ));
   });
 
@@ -41,6 +43,7 @@ void main(){
       .setSensation(Sensations.sensuality)
       .setStress(0.5)
       .setSelfRate(0.5)
+      .setDateTime(DateTime(2026, 02, 03, 00, 00, 00))
       .setNote("Сегодня я чувствую себя хорошо!");
     final isCompleted = builder.isCompleted;
     expect(isCompleted, true);

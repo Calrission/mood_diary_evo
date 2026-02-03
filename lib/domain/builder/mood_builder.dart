@@ -18,19 +18,16 @@ class MoodBuilder {
   String? _note;
   String? get note => _note;
 
-  MoodBuilder({
-    Emotes? emote, Sensations? sensations, double? stress,
-    double? selfRate, String? note
-  }):
-    _emote = emote, _sensations = sensations,
-    _stress = stress, _selfRate = selfRate, _note = note;
+  DateTime? _dateTime;
+  DateTime? get dateTime => _dateTime;
 
   bool get isCompleted =>
     _emote != null &&
     _sensations != null &&
     _stress != null &&
     _selfRate != null &&
-    _note != null
+    _note != null &&
+    _dateTime != null
   ;
 
   MoodBuilder setEmote(Emotes emote) {
@@ -67,6 +64,11 @@ class MoodBuilder {
     return this;
   }
 
+  MoodBuilder setDateTime(DateTime dateTime){
+    _dateTime = dateTime;
+    return this;
+  }
+
   Mood build() {
     if (_emote == null){
       throw "Emote is not filled";
@@ -83,12 +85,16 @@ class MoodBuilder {
     if (_note == null){
       throw "Note is not filled";
     }
+    if (_dateTime == null){
+      throw "DateTime is not filled";
+    }
     return Mood(
       emote: _emote!,
       sensations: _sensations!,
       stress: _stress!,
       selfRate: _selfRate!,
-      note: _note!
+      note: _note!,
+      dateTime: _dateTime!
     );
   }
 }
