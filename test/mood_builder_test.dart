@@ -3,6 +3,9 @@ import 'package:mood_diary_evo_test/domain/entity/mood.dart';
 import 'package:mood_diary_evo_test/domain/enum/emotes.dart';
 import 'package:mood_diary_evo_test/domain/enum/sensations.dart';
 import 'package:mood_diary_evo_test/domain/builder/mood_builder.dart';
+import 'package:mood_diary_evo_test/domain/exceptions/empty_exception.dart';
+import 'package:mood_diary_evo_test/domain/exceptions/not_filled_exception.dart';
+import 'package:mood_diary_evo_test/domain/exceptions/wrong_order_exception.dart';
 
 void main(){
   test("Success build when complete builder", (){
@@ -32,7 +35,7 @@ void main(){
     expect(
       () => builder.build(),
       throwsA(predicate(
-        (e) => e == "Stress is not filled"
+        (e) => e == NotFilledFieldException(field: "stress")
       ))
     );
   });
@@ -64,14 +67,22 @@ void main(){
     expect(
       () => builder.setStress(1.1),
       throwsA(predicate(
-        (e) => e == "Stress should have a value between 0 and 1"
+        (e) => e is RangeError &&
+          e.start == 0 &&
+          e.end == 1 &&
+          e.name == "stress" &&
+          e.invalidValue == 1.1
       ))
     );
     expect(
       () => builder.setStress(-0.1),
-      throwsA(predicate(
-        (e) => e == "Stress should have a value between 0 and 1"
-      ))
+        throwsA(predicate(
+          (e) => e is RangeError &&
+          e.start == 0 &&
+          e.end == 1 &&
+          e.name == "stress" &&
+          e.invalidValue == -0.1
+        ))
     );
   });
 
@@ -80,13 +91,21 @@ void main(){
     expect(
       () => builder.setSelfRate(1.1),
       throwsA(predicate(
-        (e) => e == "SelfRate should have a value between 0 and 1"
+        (e) => e is RangeError &&
+        e.start == 0 &&
+        e.end == 1 &&
+        e.name == "selfRate" &&
+        e.invalidValue == 1.1
       ))
     );
     expect(
       () => builder.setSelfRate(-0.1),
       throwsA(predicate(
-        (e) => e == "SelfRate should have a value between 0 and 1"
+        (e) => e is RangeError &&
+        e.start == 0 &&
+        e.end == 1 &&
+        e.name == "selfRate" &&
+        e.invalidValue == -0.1
       ))
     );
   });
@@ -96,7 +115,7 @@ void main(){
     expect(
       () => builder.setNote(""),
       throwsA(predicate(
-        (e) => e == "Note should have a not empty value"
+        (e) => e == EmptyFieldException(field: "note")
       ))
     );
   });
@@ -106,7 +125,7 @@ void main(){
     expect(
       () => builder.setSensation(Sensations.charm),
       throwsA(predicate(
-        (e) => e == "Sensations must be conveyed first than emote"
+        (e) => e == WrongOrderException("Sensations must be conveyed first than emote")
       ))
     );
   });
@@ -117,7 +136,7 @@ void main(){
     expect(
       () => builder.setSensation(Sensations.charm),
       throwsA(predicate(
-        (e) => e == "Sensations must be contains in Emotes.sensations"
+        (e) => e == WrongOrderException("Sensations must be contains in Emotes.sensations")
       ))
     );
   });

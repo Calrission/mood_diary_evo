@@ -1,6 +1,9 @@
 import 'package:mood_diary_evo_test/domain/entity/mood.dart';
 import 'package:mood_diary_evo_test/domain/enum/emotes.dart';
 import 'package:mood_diary_evo_test/domain/enum/sensations.dart';
+import 'package:mood_diary_evo_test/domain/exceptions/empty_exception.dart';
+import 'package:mood_diary_evo_test/domain/exceptions/not_filled_exception.dart';
+import 'package:mood_diary_evo_test/domain/exceptions/wrong_order_exception.dart';
 
 class MoodBuilder {
   Emotes? _emote;
@@ -37,10 +40,10 @@ class MoodBuilder {
 
   MoodBuilder setSensation(Sensations sensation) {
     if (emote == null){
-      throw "Sensations must be conveyed first than emote";
+      throw WrongOrderException("Sensations must be conveyed first than emote");
     }
     if (!emote!.sensations.contains(sensation)){
-      throw "Sensations must be contains in Emotes.sensations";
+      throw WrongOrderException("Sensations must be contains in Emotes.sensations");
     }
     _sensations = sensation;
     return this;
@@ -48,7 +51,7 @@ class MoodBuilder {
 
   MoodBuilder setStress(double stress) {
     if (stress < 0 || stress > 1){
-      throw "Stress should have a value between 0 and 1";
+      throw RangeError.range(stress, 0, 1, "stress");
     }
     _stress = stress;
     return this;
@@ -56,7 +59,7 @@ class MoodBuilder {
 
   MoodBuilder setSelfRate(double selfRate) {
     if (selfRate < 0 || selfRate > 1){
-      throw "SelfRate should have a value between 0 and 1";
+      throw RangeError.range(selfRate, 0, 1, "selfRate");
     }
     _selfRate = selfRate;
     return this;
@@ -64,7 +67,7 @@ class MoodBuilder {
 
   MoodBuilder setNote(String note) {
     if (note.isEmpty){
-      throw "Note should have a not empty value";
+      throw EmptyFieldException(field: "note");
     }
     _note = note;
     return this;
@@ -77,22 +80,22 @@ class MoodBuilder {
 
   Mood build() {
     if (_emote == null){
-      throw "Emote is not filled";
+      throw NotFilledFieldException(field: "emote ");
     }
     if (_sensations == null){
-      throw "Sensations is not filled";
+      throw NotFilledFieldException(field: "sensations");
     }
     if (_stress == null){
-      throw "Stress is not filled";
+      throw NotFilledFieldException(field: "stress");
     }
     if (_selfRate == null){
-      throw "SelfRate is not filled";
+      throw NotFilledFieldException(field: "selfRate");
     }
     if (_note == null){
-      throw "Note is not filled";
+      throw NotFilledFieldException(field: "note");
     }
     if (_dateTime == null){
-      throw "DateTime is not filled";
+      throw NotFilledFieldException(field: "dateTime");
     }
     return Mood(
       emote: _emote!,
