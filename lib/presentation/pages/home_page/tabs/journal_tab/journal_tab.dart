@@ -22,6 +22,7 @@ class JournalTab extends StatelessWidget {
     final noteFocusNode = FocusNode();
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: BlocConsumer<JournalBloc, JournalState>(
           listener: (context, state){
@@ -61,13 +62,13 @@ class JournalTab extends StatelessWidget {
                   selected: state.builder.emote,
                   onChoose: (emote) {
                     journalBloc.add(
-                        ChooseEmoteJournalEvent(emote: emote)
+                      ChooseEmoteJournalEvent(emote: emote)
                     );
                   }
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: pagePadding
+                    horizontal: pagePadding
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,7 +81,7 @@ class JournalTab extends StatelessWidget {
                             sensations: state.builder.emote!.sensations,
                             onChoose: (sensation) {
                               journalBloc.add(
-                                  ChooseSensationJournalEvent(sensation: sensation)
+                                ChooseSensationJournalEvent(sensation: sensation)
                               );
                             },
                           ),
@@ -98,14 +99,14 @@ class JournalTab extends StatelessWidget {
                         value: state.builder.stress ?? defaultStressLevel,
                         onChanged: (value){
                           journalBloc.add(
-                              SetStressJournalEvent(stress: value)
+                            SetStressJournalEvent(stress: value)
                           );
                         },
                       ),
                       const SizedBox(height: 26),
                       Text(
-                          "Самооценка",
-                          style: TS.titleBlock.use(context.palette.text)
+                        "Самооценка",
+                        style: TS.titleBlock.use(context.palette.text)
                       ),
                       const SizedBox(height: 20),
                       SliderBlock(

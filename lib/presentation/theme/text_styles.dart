@@ -32,6 +32,11 @@ abstract class TS {
     fontWeight: FontWeight.w500
   );
 
+  static TextStyle calendarToday = GoogleFonts.nunito(
+    fontSize: 18,
+    fontWeight: FontWeight.w600
+  );
+
   static TextStyle titleBlock = GoogleFonts.nunito(
     fontSize: 16,
     fontWeight: FontWeight.w800
