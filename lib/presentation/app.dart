@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mood_diary_evo_test/domain/builder/mood_builder.dart';
 import 'package:mood_diary_evo_test/domain/use_case/send_mood_use_case.dart';
+import 'package:mood_diary_evo_test/presentation/pages/calendar_page/bloc/calendar_mode_cubit.dart';
 import 'package:mood_diary_evo_test/presentation/pages/home_page/bloc/home_datetime_cubit/home_datetime_cubit.dart';
 import 'package:mood_diary_evo_test/presentation/pages/home_page/bloc/home_mode_cubit/home_mode_cubit.dart';
 import 'package:mood_diary_evo_test/presentation/pages/home_page/home_page.dart';
@@ -37,7 +38,8 @@ class MyApp extends StatelessWidget {
             ),
             SendMoodUseCase(),
           )
-        )
+        ),
+        BlocProvider(create: (context) => CalendarModeCubit()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

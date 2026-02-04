@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mood_diary_evo_test/presentation/pages/calendar_page/bloc/calendar_mode_cubit.dart';
+import 'package:mood_diary_evo_test/presentation/pages/calendar_page/enum/calendar_mode.dart';
 import 'package:mood_diary_evo_test/presentation/theme/app_theme_extension.dart';
 import 'package:mood_diary_evo_test/presentation/theme/text_styles.dart';
 import 'package:mood_diary_evo_test/presentation/theme/values.dart';
@@ -14,9 +17,8 @@ class CalendarAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(
-        top: 49,
+        top: 67,
         left: calendarAppBarLeftOffset,
-        bottom: 18,
         right: pagePadding
       ),
       child: Column(
@@ -27,7 +29,7 @@ class CalendarAppBar extends StatelessWidget implements PreferredSizeWidget {
             children: [
               AppInkWell(
                 borderRadius: BorderRadius.circular(90),
-                onTap: (){
+                onTap: () {
                   Navigator.pop(context);
                 },
                 child: Container(
@@ -53,21 +55,30 @@ class CalendarAppBar extends StatelessWidget implements PreferredSizeWidget {
             ],
           ),
           SizedBox(height: 18),
-          Padding(
-            padding: EdgeInsets.only(left: 10),
-            child: Row(
-              spacing: 8,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _WeekdayCalendarItem(text: "ПН"),
-                _WeekdayCalendarItem(text: "ВТ"),
-                _WeekdayCalendarItem(text: "СР"),
-                _WeekdayCalendarItem(text: "ЧТ"),
-                _WeekdayCalendarItem(text: "ПТ"),
-                _WeekdayCalendarItem(text: "СБ"),
-                _WeekdayCalendarItem(text: "ВС"),
-              ],
-            ),
+          BlocBuilder<CalendarModeCubit, CalendarMode>(
+            builder: (context, state) {
+              switch(state){
+                case CalendarMode.list:
+                  return Padding(
+                    padding: EdgeInsets.only(left: 10, bottom: 8),
+                    child: Row(
+                      spacing: 8,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        _WeekdayCalendarItem(text: "ПН"),
+                        _WeekdayCalendarItem(text: "ВТ"),
+                        _WeekdayCalendarItem(text: "СР"),
+                        _WeekdayCalendarItem(text: "ЧТ"),
+                        _WeekdayCalendarItem(text: "ПТ"),
+                        _WeekdayCalendarItem(text: "СБ"),
+                        _WeekdayCalendarItem(text: "ВС"),
+                      ],
+                    ),
+                  );
+                case CalendarMode.grid:
+                  return SizedBox();
+              }
+            },
           )
         ],
       ),
@@ -86,17 +97,19 @@ class _WeekdayCalendarItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final w = MediaQuery.sizeOf(context).width;
+    final w = MediaQuery
+        .sizeOf(context)
+        .width;
     final cellW = (w - calendarWeekdayLeftOffset - calendarAppBarLeftOffset -
-        pagePadding - 6*calendarPaddingBetweenDays) / 7;
+        pagePadding - 6 * calendarPaddingBetweenDays) / 7;
     return SizedBox(
-      width: cellW,
-      child: Center(
-        child: Text(
-          text,
-          style: TS.calendarWeekdays.use(context.palette.grey2)
-        ),
-      )
+        width: cellW,
+        child: Center(
+          child: Text(
+              text,
+              style: TS.calendarWeekdays.use(context.palette.grey2)
+          ),
+        )
     );
   }
 }

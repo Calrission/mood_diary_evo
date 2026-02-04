@@ -17,20 +17,37 @@ abstract class TS {
     fontWeight: FontWeight.w600
   );
 
-  static TextStyle calendarYear = GoogleFonts.nunito(
+  static TextStyle listCalendarYear = GoogleFonts.nunito(
     fontSize: 16,
     height: 0.9,
     fontWeight: FontWeight.bold
   );
 
-  static TextStyle calendarMonth = GoogleFonts.nunito(
+  static TextStyle listMonth = GoogleFonts.nunito(
     fontSize: 24,
     height: 0.8,
     fontWeight: FontWeight.bold
   );
 
-  static TextStyle calendarNumber = GoogleFonts.nunito(
+  static TextStyle listNumber = GoogleFonts.nunito(
     fontSize: 18,
+    fontWeight: FontWeight.w500
+  );
+
+  static TextStyle gridCalendarYear = GoogleFonts.nunito(
+    fontSize: 26,
+    height: 0.9,
+    fontWeight: FontWeight.w800
+  );
+
+  static TextStyle gridMonth = GoogleFonts.nunito(
+    fontSize: 14,
+    height: 0.8,
+    fontWeight: FontWeight.bold
+  );
+
+  static TextStyle gridNumber = GoogleFonts.nunito(
+    fontSize: 10,
     fontWeight: FontWeight.w500
   );
 
