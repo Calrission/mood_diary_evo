@@ -28,6 +28,13 @@ class HomeDateTimeCubit extends Cubit<HomeDateTimeState> {
   }
 
   void setDateTime(DateTime dateTime){
-    emit(HomeDateTimeState(dateTime: dateTime, isEnableUpdating: false));
+    final current = DateTime.now();
+    final isEnableUpdating = dateTime.onlyDate == current.onlyDate;
+    emit(
+      HomeDateTimeState(
+        dateTime: (isEnableUpdating) ? current : dateTime,
+        isEnableUpdating: isEnableUpdating
+      )
+    );
   }
 }
