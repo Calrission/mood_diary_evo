@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mood_diary_evo_test/presentation/pages/home_page/bloc/home_mode_cubit/home_mode_cubit.dart';
 import 'package:mood_diary_evo_test/presentation/pages/home_page/tabs/journal_tab/journal_tab.dart';
-import 'package:mood_diary_evo_test/presentation/pages/home_page/tabs/statistic_tab.dart';
+import 'package:mood_diary_evo_test/presentation/pages/home_page/tabs/statistic_tab/statistic_tab.dart';
 import 'package:mood_diary_evo_test/presentation/pages/home_page/widgets/home_app_bar.dart';
 import 'package:mood_diary_evo_test/presentation/pages/home_page/widgets/home_mode_switcher.dart';
 import 'package:mood_diary_evo_test/presentation/theme/app_theme_extension.dart';

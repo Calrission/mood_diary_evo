@@ -1,13 +1,14 @@
 import 'package:datetime_loop/datetime_loop.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:mood_diary_evo_test/domain/builder/mood_builder.dart';
 import 'package:mood_diary_evo_test/domain/use_case/send_mood_use_case.dart';
 import 'package:mood_diary_evo_test/presentation/pages/calendar_page/bloc/calendar_mode_cubit.dart';
 import 'package:mood_diary_evo_test/presentation/pages/home_page/bloc/home_datetime_cubit/home_datetime_cubit.dart';
 import 'package:mood_diary_evo_test/presentation/pages/home_page/bloc/home_mode_cubit/home_mode_cubit.dart';
 import 'package:mood_diary_evo_test/presentation/pages/home_page/home_page.dart';
-import 'package:mood_diary_evo_test/presentation/pages/home_page/tabs/journal_tab/bloc/journal_bloc/journal_bloc.dart';
+import 'package:mood_diary_evo_test/presentation/pages/home_page/tabs/journal_tab/bloc/journal_bloc.dart';
 import 'package:mood_diary_evo_test/presentation/pages/home_page/tabs/journal_tab/widgets/slider_block.dart';
 import 'package:mood_diary_evo_test/presentation/theme/app_theme_extension.dart';
 import 'package:mood_diary_evo_test/presentation/theme/palette.dart';
@@ -15,7 +16,10 @@ import 'package:mood_diary_evo_test/presentation/theme/text_styles.dart';
 import 'package:mood_diary_evo_test/presentation/theme/values.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+
+  final Widget child;
+
+  const MyApp({super.key, this.child = const HomePage()});
 
   @override
   Widget build(BuildContext context) {
@@ -36,14 +40,14 @@ class MyApp extends StatelessWidget {
               stress: defaultStressLevel,
               dateTime: DateTime.now()
             ),
-            SendMoodUseCase(),
+            GetIt.I.get(),
           )
         ),
         BlocProvider(create: (context) => CalendarModeCubit()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
-        home: const HomePage(),
+        home: child,
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           colorScheme: .fromSeed(seedColor: palette.accent),
