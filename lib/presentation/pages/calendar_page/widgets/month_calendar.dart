@@ -8,6 +8,7 @@ import 'package:mood_diary_evo_test/presentation/pages/calendar_page/widgets/cel
 import 'package:mood_diary_evo_test/presentation/pages/home_page/bloc/home_datetime_cubit/home_datetime_cubit.dart';
 import 'package:mood_diary_evo_test/presentation/theme/app_theme_extension.dart';
 import 'package:mood_diary_evo_test/presentation/theme/text_styles.dart';
+import 'package:mood_diary_evo_test/presentation/theme/values.dart';
 
 class MonthCalendar extends StatelessWidget {
   final DateTime monthDateTime;
@@ -66,6 +67,8 @@ class MonthCalendar extends StatelessWidget {
                 physics: NeverScrollableScrollPhysics(),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 7,
+                  crossAxisSpacing: (isNormal) ? calendarPaddingBetweenDays : 0,
+                  mainAxisSpacing: (isNormal) ? calendarPaddingBetweenDays : 0,
                 ),
                 itemCount: countDays + offset + 1,
                 itemBuilder: (context, index) {

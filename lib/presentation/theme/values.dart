@@ -1,6 +1,4 @@
 const double pagePadding = 20;
-const double homeAppBarTopOffset = 64;
-const double homeAppBarBottomOffset = 8;
 const double borderRadius = 47;
 
 const double calendarAppBarLeftOffset = 10;

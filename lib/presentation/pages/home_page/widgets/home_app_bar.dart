@@ -15,10 +15,10 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(
-        top: homeAppBarTopOffset,
+        top: 64,
         left: pagePadding,
         right: pagePadding,
-        bottom: homeAppBarBottomOffset
+        bottom: 8
       ),
       child: Row(
         children: [

@@ -60,7 +60,7 @@ class CalendarAppBar extends StatelessWidget implements PreferredSizeWidget {
               switch(state){
                 case CalendarMode.list:
                   return Padding(
-                    padding: EdgeInsets.only(left: 10, bottom: 8),
+                    padding: EdgeInsets.only(left: calendarWeekdayLeftOffset, bottom: 8),
                     child: Row(
                       spacing: 8,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -106,8 +106,8 @@ class _WeekdayCalendarItem extends StatelessWidget {
         width: cellW,
         child: Center(
           child: Text(
-              text,
-              style: TS.calendarWeekdays.use(context.palette.grey2)
+            text,
+            style: TS.calendarWeekdays.use(context.palette.grey2)
           ),
         )
     );

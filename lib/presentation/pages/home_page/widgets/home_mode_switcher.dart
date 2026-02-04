@@ -16,7 +16,7 @@ class HomeModeSwitcher extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: context.palette.grey4,
-        borderRadius: BorderRadius.circular(47),
+        borderRadius: BorderRadius.circular(borderRadius),
       ),
       child: BlocBuilder<HomeModeCubit, HomeModeState>(
         builder: (context, state) {

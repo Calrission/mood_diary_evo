@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mood_diary_evo_test/domain/builder/mood_builder.dart';
-import 'package:mood_diary_evo_test/domain/use_case/send_mood_use_case.dart';
 import 'package:mood_diary_evo_test/presentation/pages/calendar_page/bloc/calendar_mode_cubit.dart';
 import 'package:mood_diary_evo_test/presentation/pages/home_page/bloc/home_datetime_cubit/home_datetime_cubit.dart';
 import 'package:mood_diary_evo_test/presentation/pages/home_page/bloc/home_mode_cubit/home_mode_cubit.dart';
@@ -17,9 +16,7 @@ import 'package:mood_diary_evo_test/presentation/theme/values.dart';
 
 class MyApp extends StatelessWidget {
 
-  final Widget child;
-
-  const MyApp({super.key, this.child = const HomePage()});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +43,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => CalendarModeCubit()),
       ],
       child: MaterialApp(
-        title: 'Flutter Demo',
-        home: child,
+        title: 'Mood diary evo',
+        home: const HomePage(),
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           colorScheme: .fromSeed(seedColor: palette.accent),
